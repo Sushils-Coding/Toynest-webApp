@@ -1,5 +1,5 @@
 import react from 'react';
-import video from '../../assets/ProductVideo.mp4';
+import video from '../assets/ProductVideo.mp4';
 
 const Hero = () => {
     return (
@@ -13,9 +13,9 @@ const Hero = () => {
                     <p className='font-bold text-[20px] sm:text-2xl stroke-amber-100 text-white tracking-tighter'>Access 850+ toys and books with ease. Exchange anytime as your kid grows!</p>
 
                     <div className=' flex justify-between md:w-[45%] my-6'>
-                    <button type="button" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-bold text-sm sm:text-[17px] rounded-full px-5 py-2.5 text-center me-2 mb-2 ">Browse Toys</button>
+                    <button type="button" className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-bold text-sm sm:text-[17px] rounded-full px-5 py-2.5 text-center me-2 mb-2 ">Browse Toys</button>
 
-                    <button type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-bold rounded-full text-sm sm:text-[17px] px-5 py-2.5 text-center me-2 mb-2">Subscribe</button>
+                    <button type="button" className="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-bold rounded-full text-sm sm:text-[17px] px-5 py-2.5 text-center me-2 mb-2">Subscribe</button>
                     </div>
 
                 </div>
