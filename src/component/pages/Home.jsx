@@ -4,6 +4,8 @@ import Navbar from '../../component/Navbar';
 import Hero from '../../component/Hero';
 import Cards from '../../component/Cards';
 import FAQ from '../../component/FAQ';
+import Footer from '../../component/Footer';
+import { SpotlightCard } from '../spotlight-card';
 
 const Home = () => {
   return (
@@ -14,6 +16,8 @@ const Home = () => {
       <Hero />
       <Cards />
       <FAQ />
+      {/* <SpotlightCard /> */}
+      <Footer />
     </div>
   )
 }
