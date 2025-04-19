@@ -1,22 +1,16 @@
 import React from 'react';
-import catalog1 from '../assets/catalog1.svg';
-import catalog2 from '../assets/catalog2.png';
-import catalog3 from '../assets/catalog3.png';
-import catalog4 from '../assets/catalog4.png';
-import catalog5 from '../assets/catalog5.png';
-
 
 const ToySearchUI = () => {
     const ageGroups = [
-        { label: 'Babies', range: '0 - 12 Months', color: 'bg-purple-200', image: catalog1 },
-        { label: 'Toddlers', range: '12 - 36 Months', color: 'bg-pink-200', image: catalog2 },
-        { label: 'Preschoolers', range: '3-5 Years', color: 'bg-yellow-200', image: catalog3 },
-        { label: 'Adolescent', range: '5 - 8 Years', color: 'bg-blue-200', image: catalog4 },
-        { label: 'Pre-teens', range: '8 - 12 Years', color: 'bg-green-200', image: catalog5 },
+        { label: 'Babies', range: '0 - 1 Year', color: 'bg-purple-200', image: '/catalog1.svg' },
+        { label: 'Toddlers', range: '1 - 3 Years', color: 'bg-pink-200', image: '/catalog2.png' },
+        { label: 'Preschoolers', range: '3 - 5 Years', color: 'bg-yellow-200', image: '/catalog3.png' },
+        { label: 'Adolescent', range: '5 - 8 Years', color: 'bg-blue-200', image: '/catalog4.png' },
+        { label: 'Pre-teens', range: '8 - 12 Years', color: 'bg-green-200', image: '/catalog5.png' },
     ];
 
     return (
-        <div className="bg-purple-50 min-h-screen py-10 px-4 text-center">
+        <div className="bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen pt-10 px-4 text-center">
             <h1 className="text-3xl md:text-6xl font-bold">
                 Start Your Toy Quest, <span className="text-yellow-500">Search Here!</span>
             </h1>

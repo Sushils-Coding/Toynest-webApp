@@ -1,6 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, LinkIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const navigation = [
   { name: 'Catalogue', href: '/catalogue', current: true },
@@ -15,8 +16,34 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [hasCartItems, setHasCartItems] = useState(false);
+
+  // Check wishlist status on component mount and when localStorage changes
+  useEffect(() => {
+    const updateWishlistCount = () => {
+      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      setWishlistCount(wishlist.length);
+    };
+
+    // Initial check
+    updateWishlistCount();
+
+    // Listen for storage changes (from other tabs)
+    window.addEventListener('storage', updateWishlistCount);
+
+    // Listen for custom events from same tab
+    window.addEventListener('wishlist-updated', updateWishlistCount);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('storage', updateWishlistCount);
+      window.removeEventListener('wishlist-updated', updateWishlistCount);
+    };
+  }, []);
+
   return (
-    <Disclosure as="nav" className="bg-black rounded-2xl z-50 fixed shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out">
+    <Disclosure as="nav" className="bg-gray-900 rounded-2xl z-50 fixed shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out">
       <div className="w-[97.5vw] px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
 
@@ -57,11 +84,31 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Subscribe + Profile with Left Gap */}
+            {/* Wishlist + Profile with Left Gap */}
             <div className="flex items-center space-x-4 pl-6">
-              <button className="bg-gray-700 text-gray-400 hover:text-white px-3 py-2 rounded-full text-sm focus:ring-2 focus:ring-white">
-                Subscribe
-              </button>
+
+              {/* Wishlist Icon */}
+              <Link to="/wishlist">
+                <div className="relative">
+                  <img
+                    src={wishlistCount > 0 ? "/wishlist.png" : "/EmptyWishlist.png"}
+                    alt="Wishlist"
+                    className="w-[30px] h-[30px] cursor-pointer"
+                  />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </div>
+              </Link>
+
+              <img
+                src={hasCartItems ? '/cart.png' : '/EmptyCart.png'}
+                alt="Cart"
+                className='w-[30px] h-[30px] cursor-pointer'
+                onClick={() => setHasCartItems(!hasCartItems)}
+              />
 
               {/* Profile Dropdown */}
               <Menu as="div" className="relative">

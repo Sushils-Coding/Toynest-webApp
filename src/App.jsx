@@ -6,6 +6,8 @@ import Pricing from './component/pages/Pricing';
 import ParentalInsights from './component/pages/ParentalInsights';
 import Seller from './component/pages/Seller';
 import About from './component/pages/About'; 
+import ToyDetailPage from './component/Pages/ToyDetailPage';
+import Wishlist from './component/pages/Wishlist';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 
@@ -19,6 +21,10 @@ function App() {
     {
       path: "/catalogue",
       element: <Catalogue />
+    },
+    {
+      path:'/wishlist',
+      element: <Wishlist />
     },
     {
       path: "/pricing",
@@ -35,6 +41,10 @@ function App() {
     {
       path: "/about",
       element: <About />
+    },
+    {
+      path: "/toy/:id",
+       element: <ToyDetailPage />
     }
   ])
 

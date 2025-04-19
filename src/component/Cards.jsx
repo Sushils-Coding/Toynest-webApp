@@ -1,44 +1,28 @@
 import React, { useRef } from 'react';
-
-import video1 from '../assets/Toyvideo1.webm';
-import video2 from '../assets/Toyvideo2.mp4';
-import video3 from '../assets/Toyvideo3.webm';
-import video5 from '../assets/Toyvideo5.webm';
-
-import babies from '../assets/babies.svg';
-import toddler from '../assets/toddler.svg';
-import Preschoolers from '../assets/preschoolers.svg';
-import Adolescent from '../assets/adolescent.svg';
-import Preteens from '../assets/preteens.svg';
-
-import babiesImg from '../assets/babies.png';
-import toddlerImg from '../assets/toddler.png';
-import PreschoolersImg from '../assets/preschool.png';
-import AdolescentImg from '../assets/adolescent.png';
-import PreteensImg from '../assets/preteens.png';
+import { Link } from 'react-router-dom';
 
 const cardsData = [
     {
         id: 1,
-        video: video1,
+        video: '/Toyvideo1.webm',
         topText: "Fuel curiosity with fun learning!",
         bottomText: "Our toys make every moment a creative adventure.",
     },
     {
         id: 2,
-        video: video2,
+        video: '/Toyvideo2.mp4',
         topText: "Say goodbye to screen time battles!",
         bottomText: "Engage their senses with interactive, physical play.",
     },
     {
         id: 3,
-        video: video3,
+        video: '/Toyvideo3.webm',
         topText: "Mess-free magic every day!",
         bottomText: "Designed to spark joy without the chaos.",
     },
     {
         id: 4,
-        video: video5,
+        video: '/Toyvideo5.webm',
         topText: "Smart play starts here!",
         bottomText: "Built to evolve with your child’s imagination.",
     },
@@ -176,8 +160,8 @@ const Cards = () => {
                             age="0 - 12 Months"
                             bgColor="bg-purple-200"
                             iconBg="bg-purple-200"
-                            icons={babies}
-                            image={babiesImg}
+                            icons={"/babies.svg"}
+                            image={'/babies.png'}
                         />
                     </div>
 
@@ -188,8 +172,8 @@ const Cards = () => {
                             age="12 - 36 Months"
                             bgColor="bg-pink-200"
                             iconBg="bg-pink-200"
-                            icons={toddler}
-                            image={toddlerImg}
+                            icons={'/toddler.svg'}
+                            image={'/toddler.png'}
                         />
                     </div>
 
@@ -201,8 +185,8 @@ const Cards = () => {
                             bgColor="bg-amber-200"
                             iconBg="bg-amber-200"
                             description="Engaging, safe, and educational toys designed to spark joy and support early development in toddlers."
-                            icons={Preschoolers}
-                            image={PreschoolersImg}
+                            icons={'/preschoolers.svg'}
+                            image={'/preschool.png'}
                         />
                     </div>
 
@@ -213,8 +197,8 @@ const Cards = () => {
                             age="5 - 8 Years"
                             bgColor="bg-blue-200"
                             iconBg="bg-blue-200"
-                            icons={Adolescent}
-                            image={AdolescentImg}
+                            icons={'/adolescent.svg'}
+                            image={'/adolescent.png'}
                         />
                     </div>
 
@@ -225,13 +209,14 @@ const Cards = () => {
                             age="8 - 12 Years"
                             bgColor="bg-green-200"
                             iconBg="bg-green-200"
-                            icons={Preteens}
-                            image={PreteensImg}
+                            icons={'/preteens.svg'}
+                            image={'/preteens.png'}
                         />
                     </div>
                 </div>
 
                 <div className='text-center mt-14'>
+                    <Link to = '/catalogue' >
                     <button className=" relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-[17px] font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-black focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <span className="flex justify-center items-center gap-2.5 relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-white rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
                             Browse Catalog {" "}
@@ -251,6 +236,7 @@ const Cards = () => {
                             </svg>
                         </span>
                     </button>
+                    </Link>
                 </div>
 
             </div>

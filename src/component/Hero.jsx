@@ -1,11 +1,10 @@
 import react from 'react';
-import video from '../assets/ProductVideo.mp4';
 import {Link} from 'react-router-dom';
 
 const Hero = () => {
     return (
         <div className='w-[100%] h-[97%]'>
-            <video src={video} autoPlay loop muted className='absolute top-0 h-[100%] w-[100%] object-cover' />
+            <video src={'/ProductVideo.mp4'} autoPlay loop muted className='absolute top-0 h-[100%] w-[100%] object-cover' />
 
             <div className='content absolute top-0 h-[100%] w-[100%] flex justify-between capitalize bg-gradient-to-r from-[rgba(0,0,0,0.7)] to-[rgba(0,0,0,0)]'>
                 <div className='flex flex-col justify-center items-start w-[100%] lg:w-[50%] px-[40px] bg-transparent'>
