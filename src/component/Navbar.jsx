@@ -1,18 +1,26 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const navigation = [
-  { name: 'Catalogue', href: '/catalogue', current: true },
-  { name: 'Plan & Pricing', href: '/pricing', current: false },
-  { name: 'Parental Insights', href: '/parental-insights', current: false },
-  { name: 'Be a Seller', href: '/seller', current: false },
-  { name: 'About Us', href: '/about', current: false },
-]
+  { name: "Catalogue", href: "/catalogue", current: true },
+  { name: "Plan & Pricing", href: "/pricing", current: false },
+  { name: "Parental Insights", href: "/parental-insights", current: false },
+  { name: "Be a Seller", href: "/seller", current: false },
+  { name: "About Us", href: "/about", current: false },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const Navbar = () => {
@@ -21,24 +29,24 @@ const Navbar = () => {
 
   useEffect(() => {
     const updateWishlistCount = () => {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist') || []);
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
       // Remove duplicates just in case
-      const uniqueItems = [...new Set(wishlist.map(id => String(id)))];
+      const uniqueItems = [...new Set(wishlist.map((id) => String(id)))];
       setWishlistCount(uniqueItems.length);
     };
 
     updateWishlistCount();
-    window.addEventListener('wishlist-updated', updateWishlistCount);
+    window.addEventListener("wishlist-updated", updateWishlistCount);
 
     return () => {
-      window.removeEventListener('wishlist-updated', updateWishlistCount);
+      window.removeEventListener("wishlist-updated", updateWishlistCount);
     };
   }, []);
-  
+
   useEffect(() => {
     const updateCounts = () => {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist') || []);
-      const cart = JSON.parse(localStorage.getItem('cart') || []);
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
       setWishlistCount(wishlist.length);
       setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
     };
@@ -47,25 +55,27 @@ const Navbar = () => {
     updateCounts();
 
     // Listen for storage changes (from other tabs)
-    window.addEventListener('storage', updateCounts);
+    window.addEventListener("storage", updateCounts);
 
     // Listen for custom events from same tab
-    window.addEventListener('wishlist-updated', updateCounts);
-    window.addEventListener('cart-updated', updateCounts);
+    window.addEventListener("wishlist-updated", updateCounts);
+    window.addEventListener("cart-updated", updateCounts);
 
     // Cleanup
     return () => {
-      window.removeEventListener('storage', updateCounts);
-      window.removeEventListener('wishlist-updated', updateCounts);
-      window.removeEventListener('cart-updated', updateCounts);
+      window.removeEventListener("storage", updateCounts);
+      window.removeEventListener("wishlist-updated", updateCounts);
+      window.removeEventListener("cart-updated", updateCounts);
     };
   }, []);
 
   return (
-    <Disclosure as="nav" className="bg-gray-900 rounded-2xl z-50 fixed shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out">
+    <Disclosure
+      as="nav"
+      className="bg-gray-900 rounded-2xl z-50 fixed shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out"
+    >
       <div className="w-[97.5vw] px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-
           {/* Mobile Menu Button */}
           <div className="sm:hidden">
             <Disclosure.Button className="p-2 text-gray-400 hover:bg-gray-700 hover:text-white rounded-md focus:ring-2 focus:ring-white">
@@ -78,8 +88,16 @@ const Navbar = () => {
           {/* Logo Section */}
           <Link to="/">
             <div className="w-[130px] sm:w-auto flex justify-end items-center md:space-x-4">
-              <img src="/Logo_ToyNest.png" alt="ToyNest Logo" className="flex h-[49px] w-auto" />
-              <img src="/BrandName.png" alt="ToyNest" className="h-[73px] hidden md:block" />
+              <img
+                src="/Logo_ToyNest.png"
+                alt="ToyNest Logo"
+                className="flex h-[49px] w-auto"
+              />
+              <img
+                src="/BrandName.png"
+                alt="ToyNest"
+                className="h-[73px] hidden md:block"
+              />
             </div>
           </Link>
 
@@ -93,9 +111,9 @@ const Navbar = () => {
                   to={item.href}
                   className={classNames(
                     item.current
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'rounded-md px-3 py-2 text-sm sm:text-[15px] md:text-[17px] font-medium'
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "rounded-md px-3 py-2 text-sm sm:text-[15px] md:text-[17px] font-medium"
                   )}
                 >
                   {item.name}
@@ -105,12 +123,13 @@ const Navbar = () => {
 
             {/* Wishlist + Cart + Profile with Left Gap */}
             <div className="flex items-center space-x-4 pl-6">
-
               {/* Wishlist Icon */}
               <Link to="/wishlist">
                 <div className="relative">
                   <img
-                    src={wishlistCount > 0 ? "/wishlist.png" : "/EmptyWishlist.png"}
+                    src={
+                      wishlistCount > 0 ? "/wishlist.png" : "/EmptyWishlist.png"
+                    }
                     alt="Wishlist"
                     className="w-[30px] h-[30px] cursor-pointer"
                   />
@@ -148,7 +167,7 @@ const Navbar = () => {
                   />
                 </MenuButton>
                 <MenuItems className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5">
-                  {['Your Profile', 'Settings', 'Sign out'].map((item) => (
+                  {["Your Profile", "Settings", "Sign out"].map((item) => (
                     <MenuItem key={item}>
                       <a
                         href="#"
@@ -174,9 +193,9 @@ const Navbar = () => {
             to={item.href}
             className={classNames(
               item.current
-                ? 'bg-gray-900 text-white'
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-              'block rounded-md px-3 py-2 text-base font-medium'
+                ? "bg-gray-900 text-white"
+                : "text-gray-300 hover:bg-gray-700 hover:text-white",
+              "block rounded-md px-3 py-2 text-base font-medium"
             )}
           >
             {item.name}

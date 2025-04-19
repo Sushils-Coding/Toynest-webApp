@@ -1,69 +1,65 @@
-import { useState } from 'react'
-import './App.css'
-import Home from './component/pages/Home';
-import Catalogue from './component/pages/Catalogue';
-import Pricing from './component/pages/Pricing';
-import ParentalInsights from './component/pages/ParentalInsights';
-import Seller from './component/pages/Seller';
-import About from './component/pages/About'; 
-import ToyCardComponent from './component/ToyCardComponent';
-import ToyDetailPage from './component/Pages/ToyDetailPage';
-import Wishlist from './component/pages/Wishlist';
-import Cart from './component/pages/Cart';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import "./App.css";
+import Home from "./component/pages/Home";
+import Catalogue from "./component/pages/Catalogue";
+import Pricing from "./component/pages/Pricing";
+import ParentalInsights from "./component/pages/ParentalInsights";
+import Seller from "./component/pages/Seller";
+import About from "./component/pages/About";
+import ToyCardComponent from "./component/ToyCardComponent";
+import ToyDetailPage from "./component/pages/ToyDetailPage";
+import Wishlist from "./component/pages/Wishlist";
+import Cart from "./component/pages/Cart";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />
+      element: <Home />,
     },
     {
       path: "/catalogue",
-      element: <Catalogue />
+      element: <Catalogue />,
     },
     {
       path: "/toy",
-      element: <ToyCardComponent />
+      element: <ToyCardComponent />,
     },
     {
-      path:'/wishlist',
-      element: <Wishlist />
+      path: "/wishlist",
+      element: <Wishlist />,
     },
-    ,
     {
-      path:'/cart',
-      element: <Cart />
+      path: "/cart",
+      element: <Cart />,
     },
     {
       path: "/pricing",
-      element: <Pricing />
+      element: <Pricing />,
     },
     {
       path: "/parental-insights",
-      element: <ParentalInsights />
+      element: <ParentalInsights />,
     },
     {
       path: "/seller",
-      element: <Seller />
+      element: <Seller />,
     },
     {
       path: "/about",
-      element: <About />
+      element: <About />,
     },
     {
       path: "/toy/:id",
-       element: <ToyDetailPage />
-    }
-  ])
+      element: <ToyDetailPage />,
+    },
+  ]);
 
   return (
     <>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

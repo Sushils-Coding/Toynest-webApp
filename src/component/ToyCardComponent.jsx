@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import toys from "../data/Toy";
 import Navbar from "./Navbar";
 
-const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filteredToysProp }) => {
-
+const ToyCardComponent = ({
+  showNavbar = true,
+  showSearch = true,
+  toys: filteredToysProp,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [shouldScroll, setShouldScroll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +23,6 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
       toy.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       toy.brand?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  
 
   const totalPages = Math.ceil(filteredToys.length / cardsPerPage);
   const indexOfLastCard = currentPage * cardsPerPage;
@@ -37,7 +39,7 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
   const addToCart = (toyId, e) => {
     e.stopPropagation();
     try {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const cart = JSON.parse(localStorage.getItem("cart")) || "[]";
       const stringToyId = String(toyId);
       const existingItemIndex = cart.findIndex(
         (item) => String(item.id) === stringToyId
@@ -91,11 +93,25 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
             className="flex items-center max-w-sm mx-auto mb-8"
             onSubmit={(e) => e.preventDefault()} // prevent form submission refresh
           >
-            <label htmlFor="toy-search" className="sr-only">Search</label>
+            <label htmlFor="toy-search" className="sr-only">
+              Search
+            </label>
             <div className="relative w-full">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 18 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"
+                  />
                 </svg>
               </div>
               <input
@@ -111,15 +127,25 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
               type="submit"
               className=" cursor-pointer p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              <svg
+                className="w-4 h-4"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
               </svg>
               <span className="sr-only">Search</span>
             </button>
           </form>
         )}
-
-
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -191,10 +217,11 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
                     setShouldScroll(true);
                   }}
                   disabled={currentPage === 1}
-                  className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight border border-e-0 border-gray-300 rounded-s-lg ${currentPage === 1
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                    }`}
+                  className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight border border-e-0 border-gray-300 rounded-s-lg ${
+                    currentPage === 1
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                  }`}
                 >
                   &lt;
                 </button>
@@ -207,10 +234,11 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
                       setCurrentPage(index + 1);
                       setShouldScroll(true);
                     }}
-                    className={`flex items-center justify-center px-3 h-8 leading-tight border ${currentPage === index + 1
-                      ? "text-blue-600 border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
-                      : "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                      }`}
+                    className={`flex items-center justify-center px-3 h-8 leading-tight border ${
+                      currentPage === index + 1
+                        ? "text-blue-600 border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
+                        : "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                    }`}
                   >
                     {index + 1}
                   </button>
@@ -224,10 +252,11 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
                     setShouldScroll(true);
                   }}
                   disabled={currentPage === totalPages}
-                  className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 rounded-e-lg ${currentPage === totalPages
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                    }`}
+                  className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 rounded-e-lg ${
+                    currentPage === totalPages
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                  }`}
                 >
                   &gt;
                 </button>
