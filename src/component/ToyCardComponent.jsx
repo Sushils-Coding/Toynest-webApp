@@ -12,7 +12,7 @@ const ToyCardComponent = ({ showNavbar = true, showSearch = true, toys: filtered
   const navigate = useNavigate();
   const topRef = useRef(null);
 
-  const cardsPerPage = 10;
+  const cardsPerPage = 8;
 
   // Filter toys by name or brand
   const filteredToys = toysList.filter(
