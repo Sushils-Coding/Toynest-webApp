@@ -6,8 +6,10 @@ import Pricing from './component/pages/Pricing';
 import ParentalInsights from './component/pages/ParentalInsights';
 import Seller from './component/pages/Seller';
 import About from './component/pages/About'; 
+import ToyCardComponent from './component/ToyCardComponent';
 import ToyDetailPage from './component/Pages/ToyDetailPage';
 import Wishlist from './component/pages/Wishlist';
+import Cart from './component/pages/Cart';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 
@@ -23,8 +25,17 @@ function App() {
       element: <Catalogue />
     },
     {
+      path: "/toy",
+      element: <ToyCardComponent />
+    },
+    {
       path:'/wishlist',
       element: <Wishlist />
+    },
+    ,
+    {
+      path:'/cart',
+      element: <Cart />
     },
     {
       path: "/pricing",

@@ -6,23 +6,38 @@ import Navbar from "../Navbar";
 const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
 
-  useEffect(() => {
+  // Load wishlist and ensure no duplicate IDs
+  const loadWishlistData = () => {
     const storedWishlist = localStorage.getItem('wishlist');
     if (storedWishlist) {
-      setWishlistItems(JSON.parse(storedWishlist));
+      const parsedWishlist = JSON.parse(storedWishlist);
+      // Remove duplicates (convert all to string to avoid type mismatch)
+      const uniqueWishlist = [...new Set(parsedWishlist.map(id => String(id)))];
+      setWishlistItems(uniqueWishlist);
+      localStorage.setItem('wishlist', JSON.stringify(uniqueWishlist)); // Optional: clean up localStorage
     }
+  };
+
+  useEffect(() => {
+    loadWishlistData();
+    window.addEventListener('wishlist-updated', loadWishlistData);
+    return () => window.removeEventListener('wishlist-updated', loadWishlistData);
   }, []);
 
   const removeFromWishlist = (id) => {
-    const updatedWishlist = wishlistItems.filter(item => item !== id);
+    const stringId = String(id);
+    const updatedWishlist = wishlistItems.filter(itemId => String(itemId) !== stringId);
     setWishlistItems(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
 
-    window.dispatchEvent(new Event('wishlist-updated'));
+    // Small delay to trigger update event after state is set
+    setTimeout(() => {
+      window.dispatchEvent(new Event('wishlist-updated'));
+    }, 100);
   };
 
   const getToyById = (id) => {
-    return toys.find(toy => toy.id.toString() === id);
+    return toys.find(toy => String(toy.id) === String(id));
   };
 
   return (
@@ -30,17 +45,14 @@ const Wishlist = () => {
       <div className='p-[10px] h-[80px]'>
         <Navbar />
       </div>
-      <div className="min-h-screen bg-gradient-to-b from-purple-500 to-purple-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-purple-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Wishlist</h1>
-          
+
           {wishlistItems.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-600 text-lg mb-4">Your wishlist is empty</p>
-              <Link 
-                to="/" 
-                className="text-blue-600 hover:text-blue-800 font-medium"
-              >
+              <Link to="/toy" className="text-blue-600 hover:text-blue-800 font-medium">
                 Continue shopping
               </Link>
             </div>
@@ -49,7 +61,7 @@ const Wishlist = () => {
               {wishlistItems.map(id => {
                 const toy = getToyById(id);
                 if (!toy) return null;
-                
+
                 return (
                   <div key={id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div className="relative">
@@ -64,9 +76,8 @@ const Wishlist = () => {
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6 text-red-500"
+                          className="h-6 w-6 text-red-500 fill-current"
                           viewBox="0 0 20 20"
-                          fill="currentColor"
                         >
                           <path
                             fillRule="evenodd"

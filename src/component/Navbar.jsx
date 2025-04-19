@@ -17,28 +17,47 @@ function classNames(...classes) {
 
 const Navbar = () => {
   const [wishlistCount, setWishlistCount] = useState(0);
-  const [hasCartItems, setHasCartItems] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
-  // Check wishlist status on component mount and when localStorage changes
   useEffect(() => {
     const updateWishlistCount = () => {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      const wishlist = JSON.parse(localStorage.getItem('wishlist') || []);
+      // Remove duplicates just in case
+      const uniqueItems = [...new Set(wishlist.map(id => String(id)))];
+      setWishlistCount(uniqueItems.length);
+    };
+
+    updateWishlistCount();
+    window.addEventListener('wishlist-updated', updateWishlistCount);
+
+    return () => {
+      window.removeEventListener('wishlist-updated', updateWishlistCount);
+    };
+  }, []);
+  
+  useEffect(() => {
+    const updateCounts = () => {
+      const wishlist = JSON.parse(localStorage.getItem('wishlist') || []);
+      const cart = JSON.parse(localStorage.getItem('cart') || []);
       setWishlistCount(wishlist.length);
+      setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
     };
 
     // Initial check
-    updateWishlistCount();
+    updateCounts();
 
     // Listen for storage changes (from other tabs)
-    window.addEventListener('storage', updateWishlistCount);
+    window.addEventListener('storage', updateCounts);
 
     // Listen for custom events from same tab
-    window.addEventListener('wishlist-updated', updateWishlistCount);
+    window.addEventListener('wishlist-updated', updateCounts);
+    window.addEventListener('cart-updated', updateCounts);
 
     // Cleanup
     return () => {
-      window.removeEventListener('storage', updateWishlistCount);
-      window.removeEventListener('wishlist-updated', updateWishlistCount);
+      window.removeEventListener('storage', updateCounts);
+      window.removeEventListener('wishlist-updated', updateCounts);
+      window.removeEventListener('cart-updated', updateCounts);
     };
   }, []);
 
@@ -84,7 +103,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Wishlist + Profile with Left Gap */}
+            {/* Wishlist + Cart + Profile with Left Gap */}
             <div className="flex items-center space-x-4 pl-6">
 
               {/* Wishlist Icon */}
@@ -103,12 +122,21 @@ const Navbar = () => {
                 </div>
               </Link>
 
-              <img
-                src={hasCartItems ? '/cart.png' : '/EmptyCart.png'}
-                alt="Cart"
-                className='w-[30px] h-[30px] cursor-pointer'
-                onClick={() => setHasCartItems(!hasCartItems)}
-              />
+              {/* Cart Icon */}
+              <Link to="/cart">
+                <div className="relative">
+                  <img
+                    src={cartCount > 0 ? "/cart.png" : "/EmptyCart.png"}
+                    alt="Cart"
+                    className="w-[30px] h-[30px] cursor-pointer"
+                  />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
+              </Link>
 
               {/* Profile Dropdown */}
               <Menu as="div" className="relative">
@@ -160,4 +188,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

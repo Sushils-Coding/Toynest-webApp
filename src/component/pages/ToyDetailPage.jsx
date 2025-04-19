@@ -16,7 +16,7 @@ const ToyDetailPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     // Check if item is in wishlist when component mounts or id changes
     const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
     setIsWishlisted(wishlist.includes(id));
@@ -35,7 +35,7 @@ const ToyDetailPage = () => {
   const toggleWishlist = () => {
     const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
     let updatedWishlist;
-    
+
     if (isWishlisted) {
       updatedWishlist = wishlist.filter(itemId => itemId !== id);
       setShowWishlistNotification({ show: true, message: "Removed from wishlist" });
@@ -43,20 +43,40 @@ const ToyDetailPage = () => {
       updatedWishlist = [...wishlist, id];
       setShowWishlistNotification({ show: true, message: "Added to wishlist!" });
     }
-    
+
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     setIsWishlisted(!isWishlisted);
 
     window.dispatchEvent(new Event('wishlist-updated'));
-    
+
     setTimeout(() => {
       setShowWishlistNotification({ show: false, message: "" });
     }, 3000);
   };
 
+  
   const addToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const existingItem = cart.find(item => item.id === id);
+
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      
+      cart.push({
+        id,
+        quantity,
+        selectedColor
+      });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
     setShowCartNotification(true);
-    setTimeout(() => setShowCartNotification(false), 3000);
+
+    window.dispatchEvent(new Event('cart-updated'));
+
+    setTimeout(() => setShowCartNotification(false), 1000);
   };
 
   if (!currentToy) {
