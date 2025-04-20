@@ -64,7 +64,7 @@ const Pricing = () => {
 
   const testimonials = [
     {
-      text: "The EleFant toy library has been a game-changer! My kids get excited every time we exchange toys, and I love how much money we're saving.",
+      text: "The ToyNest toy library has been a game-changer! My kids get excited every time we exchange toys, and I love how much money we're saving.",
       author: "Priya Sharma, Mom of 2",
     },
     {
@@ -373,7 +373,7 @@ const Pricing = () => {
             <p className="text-2xl md:text-4xl mb-12 leading-relaxed max-w-4xl mx-auto">
               With{" "}
               <span className="text-amber-500 font-bold relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-amber-300">
-                the EleFant
+                the ToyNest
               </span>
               , you save money, stay green, and spark your child's
               <span className="text-amber-500 font-bold relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-amber-300">
@@ -406,7 +406,7 @@ const Pricing = () => {
               <span className="text-amber-500 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-amber-300">
                 5,000+ Parents
               </span>{" "}
-              Who Trust the EleFant
+              Who Trust the ToyNest
             </h3>
             <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
