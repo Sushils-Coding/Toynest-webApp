@@ -1,4 +1,16 @@
 import React, { useState } from "react";
+import {
+  FaHeadset,
+  FaBoxOpen,
+  FaPhone,
+  FaMoneyBillWave,
+  FaChartLine,
+  FaBuilding,
+  FaPen,
+  FaCheck,
+  FaRocket,
+  FaBullseye,
+} from "react-icons/fa";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { sendEmails } from "../../services/emailService";
@@ -38,16 +50,53 @@ const Seller = () => {
     }
   };
 
+  const benefits = [
+    {
+      title: "Dedicated Support Team",
+      description:
+        "Get personalized assistance from our experienced partner support team",
+      icon: <FaHeadset className="h-6 w-6" />,
+    },
+    {
+      title: "Smart Inventory Management",
+      description:
+        "Access our advanced inventory management system with real-time tracking",
+      icon: <FaBoxOpen className="h-6 w-6" />,
+    },
+    {
+      title: "Marketing & Promotion",
+      description:
+        "Featured spots on homepage, social media promotion, and email campaigns",
+      icon: <FaPhone className="h-6 w-6" />,
+    },
+    {
+      title: "Flexible Payment Terms",
+      description: "Weekly settlements and transparent payment tracking system",
+      icon: <FaMoneyBillWave className="h-6 w-6" />,
+    },
+    {
+      title: "Growth Insights",
+      description:
+        "Detailed analytics and performance reports to grow your business",
+      icon: <FaChartLine className="h-6 w-6" />,
+    },
+    {
+      title: "Brand Building",
+      description: "Build your brand presence in the growing toy market",
+      icon: <FaBuilding className="h-6 w-6" />,
+    },
+  ];
+
   return (
     <>
       <div className="p-[10px] h-[80px]">
         <Navbar />
       </div>
-      <div className="bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen py-16 px-4">
-        <div className="max-w-4xl mx-auto">
+      <div className="bg-gray-50 min-h-screen py-12 px-4">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 transform transition-all duration-300 hover:scale-105">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
               Become a <span className="text-amber-500">ToyNest Partner</span>
             </h2>
             <p className="text-lg md:text-xl text-gray-600">
@@ -56,10 +105,35 @@ const Seller = () => {
             </p>
           </div>
 
+          {/* Benefits Grid */}
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold mb-12 text-center">
+              Why Partner With <span className="text-amber-500">ToyNest</span>?
+            </h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              {benefits.map((benefit) => (
+                <div
+                  key={benefit.title}
+                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                >
+                  <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+                    <span className="text-amber-500">{benefit.icon}</span>
+                  </div>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-3">
+                    {benefit.title}
+                  </h4>
+                  <p className="text-gray-600 leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Form */}
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-2xl p-8 shadow-xl"
+            className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8"
           >
             {/* Business Information */}
             <div className="mb-8">
