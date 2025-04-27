@@ -10,6 +10,9 @@ import ToyDetailPage from "./component/pages/ToyDetailPage";
 import Wishlist from "./component/pages/Wishlist";
 import Cart from "./component/pages/Cart";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from './context/AuthContext';
+import Login from "./component/pages/Login";
+import Register from "./component/pages/Register";
 
 function App() {
   const router = createBrowserRouter([
@@ -53,12 +56,20 @@ function App() {
       path: "/toy/:id",
       element: <ToyDetailPage />,
     },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
   ]);
 
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </>
+    </AuthProvider>
   );
 }
 

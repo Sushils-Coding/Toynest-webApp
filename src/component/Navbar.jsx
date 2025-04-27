@@ -10,6 +10,7 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const navigation = [
   { name: "Catalogue", href: "/catalogue", current: true },
@@ -26,6 +27,16 @@ function classNames(...classes) {
 const Navbar = () => {
   const [wishlistCount, setWishlistCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
+  const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Handle any post-logout cleanup
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
+  };
 
   useEffect(() => {
     const updateWishlistCount = () => {
@@ -160,24 +171,44 @@ const Navbar = () => {
               {/* Profile Dropdown */}
               <Menu as="div" className="relative">
                 <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white">
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt="User profile"
-                  />
+                  {user ? (
+                    <span className="h-8 w-8 rounded-full bg-amber-500 flex items-center justify-center text-white">
+                      {user.displayName?.charAt(0) || user.email?.charAt(0)}
+                    </span>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="text-gray-300 hover:text-white px-3 py-2"
+                    >
+                      Sign In
+                    </Link>
+                  )}
                 </MenuButton>
-                <MenuItems className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5">
-                  {["Your Profile", "Settings", "Sign out"].map((item) => (
-                    <MenuItem key={item}>
-                      <a
-                        href="#"
+                {user && (
+                  <MenuItems className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5">
+                    <MenuItem>
+                      <span className="block px-4 py-2 text-sm text-gray-700">
+                        {user.displayName || user.email}
+                      </span>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        to="/profile"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        {item}
-                      </a>
+                        Your Profile
+                      </Link>
                     </MenuItem>
-                  ))}
-                </MenuItems>
+                    <MenuItem>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Sign out
+                      </button>
+                    </MenuItem>
+                  </MenuItems>
+                )}
               </Menu>
             </div>
           </div>
