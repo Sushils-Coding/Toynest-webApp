@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import Navbar from '../Navbar';
-import Footer from '../Footer';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -15,12 +15,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await login(email, password);
-      navigate('/');
+      navigate("/");
     } catch (err) {
-      setError('Failed to sign in');
+      setError("Failed to sign in");
       console.error(err);
     }
     setLoading(false);
@@ -31,56 +31,67 @@ const Login = () => {
       <div className="p-[10px] h-[80px]">
         <Navbar />
       </div>
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 mx-auto">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+      <div className="bg-gray-50 min-h-screen py-12 px-4">
+        <div className="max-w-xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Welcome Back to <span className="text-amber-500">ToyNest</span>
             </h2>
+            <p className="text-lg text-gray-600">
+              Sign in to access your account
+            </p>
           </div>
+
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-              <span className="block sm:inline">{error}</span>
+            <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-center">
+              {error}
             </div>
           )}
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <div className="rounded-md shadow-sm -space-y-px">
+
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-2xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-8"
+          >
+            <div className="space-y-6">
               <div>
+                <label className="block text-gray-700 mb-2">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-400"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
+                <label className="block text-gray-700 mb-2">Password</label>
                 <input
                   type="password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-400"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
-              >
-                Sign in
-              </button>
-            </div>
-
-            <div className="text-sm text-center">
-              <Link to="/register" className="font-medium text-amber-600 hover:text-amber-500">
-                Don't have an account? Sign up
-              </Link>
+              <div className="text-center pt-4">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-amber-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors duration-300 disabled:opacity-50"
+                >
+                  {loading ? "Signing in..." : "Sign In"}
+                </button>
+              </div>
+              <div className="text-center pt-4">
+                <Link
+                  to="/register"
+                  className="text-amber-600 hover:text-amber-700 font-medium"
+                >
+                  Don't have an account? Sign up
+                </Link>
+              </div>
             </div>
           </form>
         </div>

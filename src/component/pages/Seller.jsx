@@ -114,7 +114,7 @@ const Seller = () => {
               {benefits.map((benefit) => (
                 <div
                   key={benefit.title}
-                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  className="bg-white p-8 rounded-xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mb-4">
                     <span className="text-amber-500">{benefit.icon}</span>
@@ -133,7 +133,7 @@ const Seller = () => {
           {/* Form */}
           <form
             onSubmit={handleSubmit}
-            className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8"
+            className="max-w-4xl mx-auto bg-white rounded-2xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-8"
           >
             {/* Business Information */}
             <div className="mb-8">

@@ -83,13 +83,13 @@ const Navbar = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-900 rounded-2xl z-50 fixed shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out"
+      className="bg-gray-900 rounded-2xl z-50 fixed left-1/2 -translate-x-1/2 shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out w-[95%] md:w-[97.5%] max-w-[1920px] mt-2"
     >
-      <div className="w-[97.5vw] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-2 sm:px-4 lg:px-6">
         <div className="flex h-16 items-center justify-between">
           {/* Mobile Menu Button */}
-          <div className="sm:hidden">
-            <Disclosure.Button className="p-2 text-gray-400 hover:bg-gray-700 hover:text-white rounded-md focus:ring-2 focus:ring-white">
+          <div className="flex items-center sm:hidden">
+            <Disclosure.Button className="p-2 text-gray-400 hover:bg-gray-700 hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white">
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="block size-6 ui-open:hidden" />
               <XMarkIcon className="hidden size-6 ui-open:block" />
@@ -97,25 +97,24 @@ const Navbar = () => {
           </div>
 
           {/* Logo Section */}
-          <Link to="/">
-            <div className="w-[130px] sm:w-auto flex justify-end items-center md:space-x-4">
+          <Link to="/" className="flex-shrink-0">
+            <div className="flex items-center space-x-2">
               <img
                 src="/Logo_ToyNest.png"
                 alt="ToyNest Logo"
-                className="flex h-[49px] w-auto"
+                className="h-[40px] w-auto sm:h-[49px]"
               />
               <img
                 src="/BrandName.png"
                 alt="ToyNest"
-                className="h-[73px] hidden md:block"
+                className="h-[50px] hidden sm:block md:h-[73px]"
               />
             </div>
           </Link>
 
-          {/* Right Side: Links + Subscribe + Profile */}
-          <div className="flex items-center justify-end sm:justify-between md:w-[65%]">
-            {/* Navigation Links */}
-            <div className="hidden sm:flex space-x-4">
+          {/* Desktop Navigation */}
+          <div className="hidden sm:flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
+            <div className="flex space-x-2 md:space-x-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -124,114 +123,115 @@ const Navbar = () => {
                     item.current
                       ? "bg-gray-900 text-white"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "rounded-md px-3 py-2 text-sm sm:text-[15px] md:text-[17px] font-medium"
+                    "rounded-md px-2 py-2 text-sm lg:px-3 xl:text-base font-medium whitespace-nowrap"
                   )}
                 >
                   {item.name}
                 </Link>
               ))}
             </div>
+          </div>
 
-            {/* Wishlist + Cart + Profile with Left Gap */}
-            <div className="flex items-center space-x-4 pl-6">
-              {/* Wishlist Icon */}
-              <Link to="/wishlist">
-                <div className="relative">
-                  <img
-                    src={
-                      wishlistCount > 0 ? "/wishlist.png" : "/EmptyWishlist.png"
-                    }
-                    alt="Wishlist"
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
-                  {wishlistCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      {wishlistCount}
-                    </span>
-                  )}
-                </div>
-              </Link>
-
-              {/* Cart Icon */}
-              <Link to="/cart">
-                <div className="relative">
-                  <img
-                    src={cartCount > 0 ? "/cart.png" : "/EmptyCart.png"}
-                    alt="Cart"
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
-                  {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      {cartCount}
-                    </span>
-                  )}
-                </div>
-              </Link>
-
-              {/* Profile Dropdown */}
-              <Menu as="div" className="relative">
-                <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white">
-                  {user ? (
-                    <span className="h-8 w-8 rounded-full bg-amber-500 flex items-center justify-center text-white">
-                      {user.displayName?.charAt(0) || user.email?.charAt(0)}
-                    </span>
-                  ) : (
-                    <Link
-                      to="/login"
-                      className="text-gray-300 hover:text-white px-3 py-2"
-                    >
-                      Sign In
-                    </Link>
-                  )}
-                </MenuButton>
-                {user && (
-                  <MenuItems className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5">
-                    <MenuItem>
-                      <span className="block px-4 py-2 text-sm text-gray-700">
-                        {user.displayName || user.email}
-                      </span>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Your Profile
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Sign out
-                      </button>
-                    </MenuItem>
-                  </MenuItems>
+          {/* Right Side Icons */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Wishlist Icon */}
+            <Link to="/wishlist">
+              <div className="relative p-1">
+                <img
+                  src={
+                    wishlistCount > 0 ? "/wishlist.png" : "/EmptyWishlist.png"
+                  }
+                  alt="Wishlist"
+                  className="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] cursor-pointer"
+                />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
                 )}
-              </Menu>
-            </div>
+              </div>
+            </Link>
+
+            {/* Cart Icon */}
+            <Link to="/cart">
+              <div className="relative p-1">
+                <img
+                  src={cartCount > 0 ? "/cart.png" : "/EmptyCart.png"}
+                  alt="Cart"
+                  className="w-[25px] h-[25px] sm:w-[30px] sm:h-[30px] cursor-pointer"
+                />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+            </Link>
+
+            {/* Profile Dropdown */}
+            <Menu as="div" className="relative ml-1">
+              <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white">
+                {user ? (
+                  <span className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-amber-500 flex items-center justify-center text-white text-sm">
+                    {user.displayName?.charAt(0) || user.email?.charAt(0)}
+                  </span>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="text-gray-300 hover:text-white px-2 py-1 sm:px-3 sm:py-2 text-sm"
+                  >
+                    Sign In
+                  </Link>
+                )}
+              </MenuButton>
+              {user && (
+                <MenuItems className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 z-50">
+                  <MenuItem>
+                    <span className="block px-4 py-2 text-sm text-gray-700">
+                      {user.displayName || user.email}
+                    </span>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Your Profile
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Sign out
+                    </button>
+                  </MenuItem>
+                </MenuItems>
+              )}
+            </Menu>
           </div>
         </div>
       </div>
 
       {/* Mobile Nav Links */}
-      <Disclosure.Panel className="sm:hidden px-2 pt-2 pb-3 space-y-1">
-        {navigation.map((item) => (
-          <Link
-            key={item.name}
-            as="a"
-            to={item.href}
-            className={classNames(
-              item.current
-                ? "bg-gray-900 text-white"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-              "block rounded-md px-3 py-2 text-base font-medium"
-            )}
-          >
-            {item.name}
-          </Link>
-        ))}
+      <Disclosure.Panel className="sm:hidden">
+        <div className="space-y-1 px-2 pb-3 pt-2">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              className={classNames(
+                item.current
+                  ? "bg-gray-900 text-white"
+                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                "block rounded-md px-3 py-2 text-base font-medium"
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
       </Disclosure.Panel>
     </Disclosure>
   );
