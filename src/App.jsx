@@ -9,6 +9,7 @@ import ToyCardComponent from "./component/ToyCardComponent";
 import ToyDetailPage from "./component/pages/ToyDetailPage";
 import Wishlist from "./component/pages/Wishlist";
 import Cart from "./component/pages/Cart";
+import ParentalInsightsDetail from "./component/pages/ParentalInsightsDetail";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
     {
       path: "/parental-insights",
       element: <ParentalInsights />,
+    },
+    {
+      path:"/parental-insights/:id",
+      element: <ParentalInsightsDetail/>,
     },
     {
       path: "/seller",
