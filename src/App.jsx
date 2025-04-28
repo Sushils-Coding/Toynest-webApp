@@ -12,6 +12,9 @@ import Cart from "./component/pages/Cart";
 import Checkout from "./component/pages/Checkout";
 import ParentalInsightsDetail from "./component/pages/ParentalInsightsDetail";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from './context/AuthContext';
+import Login from "./component/pages/Login";
+import Register from "./component/pages/Register";
 
 function App() {
   const router = createBrowserRouter([
@@ -63,12 +66,20 @@ function App() {
       path: "/toy/:id",
       element: <ToyDetailPage />,
     },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
   ]);
 
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </>
+    </AuthProvider>
   );
 }
 
