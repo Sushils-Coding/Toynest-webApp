@@ -39,7 +39,7 @@ const ToyCardComponent = ({
   const addToCart = (toyId, e) => {
     e.stopPropagation();
     try {
-      const cart = JSON.parse(localStorage.getItem("cart")) || "[]";
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const stringToyId = String(toyId);
       const existingItemIndex = cart.findIndex(
         (item) => String(item.id) === stringToyId

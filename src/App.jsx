@@ -9,6 +9,7 @@ import ToyCardComponent from "./component/ToyCardComponent";
 import ToyDetailPage from "./component/pages/ToyDetailPage";
 import Wishlist from "./component/pages/Wishlist";
 import Cart from "./component/pages/Cart";
+import Checkout from "./component/pages/Checkout";
 import ParentalInsightsDetail from "./component/pages/ParentalInsightsDetail";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -33,6 +34,10 @@ function App() {
     {
       path: "/cart",
       element: <Cart />,
+    },
+    {
+      path: "/checkout",
+      element: <Checkout />,
     },
     {
       path: "/pricing",
