@@ -16,6 +16,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
 import Login from "./component/pages/Login";
 import Register from "./component/pages/Register";
+import NotFound from "./component/pages/NotFound";
 
 function App() {
   const router = createBrowserRouter([
@@ -78,6 +79,10 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
 
