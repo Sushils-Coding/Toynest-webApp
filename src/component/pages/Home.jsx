@@ -5,7 +5,7 @@ import Hero from '../../component/Hero';
 import Cards from '../../component/Cards';
 import FAQ from '../../component/FAQ';
 import Footer from '../../component/Footer';
-import { SpotlightCard } from '../spotlight-card';
+import ChatBot from '../../component/ChatBot';
 
 const Home = () => {
 
@@ -20,7 +20,7 @@ const Home = () => {
       <Hero />
       <Cards />
       <FAQ />
-      {/* <SpotlightCard /> */}
+      <ChatBot />
       <Footer />
     </div>
   )
