@@ -205,11 +205,8 @@ const ToyCardComponent = ({
 
         {/* Pagination Controls */}
         {filteredToys.length > cardsPerPage && (
-          <nav
-            aria-label="Page navigation"
-            className="mt-10 flex justify-center"
-          >
-            <ul className="inline-flex -space-x-px text-sm">
+          <nav aria-label="Page navigation" className="mt-10 flex justify-center">
+            <ul className="inline-flex items-center gap-2">
               <li>
                 <button
                   onClick={() => {
@@ -217,10 +214,10 @@ const ToyCardComponent = ({
                     setShouldScroll(true);
                   }}
                   disabled={currentPage === 1}
-                  className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight border border-e-0 border-gray-300 rounded-s-lg ${
+                  className={`flex items-center justify-center w-10 h-10 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-110 ${
                     currentPage === 1
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                      : "bg-purple-500 text-white hover:bg-purple-600 hover:shadow-lg"
                   }`}
                 >
                   &lt;
@@ -234,10 +231,10 @@ const ToyCardComponent = ({
                       setCurrentPage(index + 1);
                       setShouldScroll(true);
                     }}
-                    className={`flex items-center justify-center px-3 h-8 leading-tight border ${
+                    className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all duration-300 transform hover:scale-110 ${
                       currentPage === index + 1
-                        ? "text-blue-600 border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
-                        : "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                        ? "bg-blue-500 text-white shadow-lg scale-110"
+                        : "bg-white text-gray-700 border-2 border-blue-300 hover:bg-blue-100 hover:border-blue-500"
                     }`}
                   >
                     {index + 1}
@@ -252,10 +249,10 @@ const ToyCardComponent = ({
                     setShouldScroll(true);
                   }}
                   disabled={currentPage === totalPages}
-                  className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 rounded-e-lg ${
+                  className={`flex items-center justify-center w-10 h-10 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-110 ${
                     currentPage === totalPages
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                      : "bg-purple-500 text-white hover:bg-purple-600 hover:shadow-lg"
                   }`}
                 >
                   &gt;

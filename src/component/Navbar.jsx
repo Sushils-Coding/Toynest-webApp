@@ -8,7 +8,7 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
@@ -25,6 +25,7 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
+  const location = useLocation();
   const [wishlistCount, setWishlistCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useAuth();
@@ -120,8 +121,8 @@ const Navbar = () => {
                   key={item.name}
                   to={item.href}
                   className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
+                    location.pathname === item.href
+                      ? "bg-gray-900 text-white font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-white after:w-full after:origin-left after:animate-expand"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "rounded-md px-2 py-2 text-sm lg:px-3 xl:text-base font-medium whitespace-nowrap"
                   )}
@@ -230,8 +231,8 @@ const Navbar = () => {
               key={item.name}
               to={item.href}
               className={classNames(
-                item.current
-                  ? "bg-gray-900 text-white"
+                location.pathname === item.href
+                  ? "bg-gray-900 text-white font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-white after:w-full after:origin-left after:animate-expand"
                   : "text-gray-300 hover:bg-gray-700 hover:text-white",
                 "block rounded-md px-3 py-2 text-base font-medium"
               )}
