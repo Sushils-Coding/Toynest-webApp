@@ -17,6 +17,7 @@ import { AuthProvider } from './context/AuthContext';
 import Login from "./component/pages/Login";
 import Register from "./component/pages/Register";
 import NotFound from "./component/pages/NotFound";
+import Layout from './component/Layout';
 
 function App() {
   const router = createBrowserRouter([
@@ -88,7 +89,9 @@ function App() {
 
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
     </AuthProvider>
   );
 }
