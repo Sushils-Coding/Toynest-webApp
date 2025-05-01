@@ -11,6 +11,7 @@ const ToyCardComponent = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [shouldScroll, setShouldScroll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showCartNotification, setShowCartNotification] = useState(false);
   const toysList = filteredToysProp || toys;
   const navigate = useNavigate();
   const topRef = useRef(null);
@@ -54,6 +55,10 @@ const ToyCardComponent = ({
       localStorage.setItem("cart", JSON.stringify(cart));
       const cartUpdateEvent = new Event("cart-updated");
       window.dispatchEvent(cartUpdateEvent);
+
+      // Show notification
+      setShowCartNotification(true);
+      setTimeout(() => setShowCartNotification(false), 1000);
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
@@ -61,8 +66,12 @@ const ToyCardComponent = ({
 
   const buyNow = (toyId, e) => {
     e.stopPropagation();
-    addToCart(toyId, e);
-    navigate("/cart");
+    const selectedToy = toysList.find((toy) => toy.id === toyId);
+    if (selectedToy) {
+      const singleProduct = [{ id: toyId, quantity: 1, ...selectedToy }];
+      localStorage.setItem("singleProductCheckout", JSON.stringify(singleProduct));
+      navigate("/checkout?single=true");
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -72,6 +81,14 @@ const ToyCardComponent = ({
 
   return (
     <>
+      {/* Cart Notification */}
+      {showCartNotification && (
+        <div className="fixed top-4 right-4 z-[9999]">
+          <div className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 animate-bounce">
+            Item added to cart!
+          </div>
+        </div>
+      )}
       {showNavbar && (
         <div className="p-[10px] h-[80px]">
           <Navbar />
@@ -182,13 +199,13 @@ const ToyCardComponent = ({
                   <div className="mt-4 flex gap-2">
                     <button
                       onClick={(e) => addToCart(toy.id, e)}
-                      className="flex-1 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-md transition"
+                      className="flex-1 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-md transition cursor-pointer"
                     >
                       Add to Cart
                     </button>
                     <button
                       onClick={(e) => buyNow(toy.id, e)}
-                      className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition"
+                      className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition cursor-pointer"
                     >
                       Buy Now
                     </button>

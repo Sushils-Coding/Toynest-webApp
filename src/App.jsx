@@ -18,6 +18,7 @@ import Login from "./component/pages/Login";
 import Register from "./component/pages/Register";
 import NotFound from "./component/pages/NotFound";
 import Layout from './component/Layout';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   const router = createBrowserRouter([
@@ -88,11 +89,13 @@ function App() {
   ]);
 
   return (
-    <AuthProvider>
-      <Layout>
-        <RouterProvider router={router} />
-      </Layout>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Layout>
+          <RouterProvider router={router} />
+        </Layout>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

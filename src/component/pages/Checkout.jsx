@@ -32,22 +32,32 @@ const Checkout = () => {
 
   // Load saved shipping info and cart items on component mount
   useEffect(() => {
-    // Load cart items and get product details
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      const parsedCart = JSON.parse(storedCart);
-      setCartItems(parsedCart);
+    const queryParams = new URLSearchParams(window.location.search);
+    const isSingleProductCheckout = queryParams.get("single") === "true";
 
-      const productsWithDetails = parsedCart.map(item => {
-        const product = toys.find(toy => toy.id.toString() === item.id.toString());
-        return {
-          ...item,
-          ...product,
-          price: product ? product.price : 0,
-          image: product ? product.image : '/Logo_ToyNest.png'
-        };
-      });
-      setProducts(productsWithDetails);
+    if (isSingleProductCheckout) {
+      const singleProduct = JSON.parse(localStorage.getItem("singleProductCheckout"));
+      if (singleProduct) {
+        setProducts(singleProduct);
+        setCartItems(singleProduct);
+      }
+    } else {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        const parsedCart = JSON.parse(storedCart);
+        setCartItems(parsedCart);
+
+        const productsWithDetails = parsedCart.map((item) => {
+          const product = toys.find((toy) => toy.id.toString() === item.id.toString());
+          return {
+            ...item,
+            ...product,
+            price: product ? product.price : 0,
+            image: product ? product.image : "/Logo_ToyNest.png",
+          };
+        });
+        setProducts(productsWithDetails);
+      }
     }
 
     // Load saved shipping info if exists

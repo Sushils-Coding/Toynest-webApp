@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import toys from '../../data/Toy';
 import Navbar from "../Navbar";
 
 const ToyDetailPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const toy = toys.find((toy) => toy.id.toString() === id);
   const [selectedColor, setSelectedColor] = useState(toy?.colors?.[0] || '');
@@ -79,6 +80,19 @@ const ToyDetailPage = () => {
     setTimeout(() => setShowCartNotification(false), 1000);
   };
 
+  const buyNow = () => {
+    const singleProductCheckout = [
+      {
+        id,
+        quantity,
+        selectedColor,
+        ...currentToy
+      }
+    ];
+    localStorage.setItem("singleProductCheckout", JSON.stringify(singleProductCheckout));
+    navigate("/checkout?single=true");
+  };
+
   if (!currentToy) {
     return <div className="p-6 text-center text-red-600">Toy not found!</div>;
   }
@@ -95,7 +109,7 @@ const ToyDetailPage = () => {
       <div className="min-h-screen bg-gradient-to-b from-purple-50 to-purple-100 py-12 px-4 sm:px-6 lg:px-8">
         {/* Cart Notification */}
         {showCartNotification && (
-          <div className="fixed top-4 right-4 z-50">
+          <div className="fixed top-4 right-4 z-[9999]">
             <div className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 animate-bounce">
               Item added to cart!
             </div>
@@ -104,7 +118,7 @@ const ToyDetailPage = () => {
 
         {/* Wishlist Notification */}
         {showWishlistNotification.show && (
-          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[9999]">
             <div className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 animate-bounce">
               {showWishlistNotification.message}
             </div>
@@ -297,11 +311,14 @@ const ToyDetailPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <button
                   onClick={addToCart}
-                  className="flex-1 bg-gray-900 text-white py-3 px-6 rounded-md font-medium hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105"
+                  className="flex-1 bg-gray-900 text-white py-3 px-6 rounded-md font-medium hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105 cursor-pointer"
                 >
                   Add to Cart
                 </button>
-                <button className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 transition-colors duration-200 transform hover:scale-105">
+                <button
+                  onClick={buyNow}
+                  className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 transition-colors duration-200 transform hover:scale-105 cursor-pointer"
+                >
                   Buy Now
                 </button>
               </div>

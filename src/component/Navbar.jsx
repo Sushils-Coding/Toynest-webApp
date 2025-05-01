@@ -8,9 +8,11 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const navigation = [
   { name: "Catalogue", href: "/catalogue", current: true },
@@ -29,6 +31,7 @@ const Navbar = () => {
   const [wishlistCount, setWishlistCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -84,7 +87,9 @@ const Navbar = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-900 rounded-2xl z-50 fixed left-1/2 -translate-x-1/2 shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out w-[95%] md:w-[97.5%] max-w-[1920px] mt-2"
+      className={`${
+        theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+      } rounded-2xl z-50 fixed left-1/2 -translate-x-1/2 shadow-xl gradient-animation hover:shadow-2xl hover:shadow-gray-500 transition-all duration-300 ease-in-out w-[95%] md:w-[97.5%] max-w-[1920px] mt-2`}
     >
       <div className="mx-auto px-2 sm:px-4 lg:px-6">
         <div className="flex h-16 items-center justify-between">
@@ -122,8 +127,8 @@ const Navbar = () => {
                   to={item.href}
                   className={classNames(
                     location.pathname === item.href
-                      ? "bg-gray-900 text-white font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-white after:w-full after:origin-left after:animate-expand"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? `${theme === 'dark' ? 'text-white' : 'text-gray-900'} font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-current after:w-full after:origin-left after:animate-expand`
+                      : `${theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} hover:bg-gray-300`,
                     "rounded-md px-2 py-2 text-sm lg:px-3 xl:text-base font-medium whitespace-nowrap"
                   )}
                 >
@@ -135,6 +140,20 @@ const Navbar = () => {
 
           {/* Right Side Icons */}
           <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg ${
+                theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'
+              } transition-all duration-300`}
+            >
+              {theme === 'dark' ? (
+                <SunIcon className="w-5 h-5 text-yellow-500 animate-spin-slow" />
+              ) : (
+                <MoonIcon className="w-5 h-5 text-gray-600 animate-spin-slow" />
+              )}
+            </button>
+
             {/* Wishlist Icon */}
             <Link to="/wishlist">
               <div className="relative p-1">
