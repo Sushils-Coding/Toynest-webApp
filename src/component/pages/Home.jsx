@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import Navbar from '../../component/Navbar';
 import Hero from '../../component/Hero';
@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  })
+  }, []);
   return (
     <div className=' h-[100vh] bg-gray-400 relative'>
       <div className=' p-[10px]'>

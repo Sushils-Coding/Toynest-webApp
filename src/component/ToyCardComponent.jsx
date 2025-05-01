@@ -18,6 +18,10 @@ const ToyCardComponent = ({
 
   const cardsPerPage = 8;
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+}, []);
+
   // Filter toys by name or brand
   const filteredToys = toysList.filter(
     (toy) =>

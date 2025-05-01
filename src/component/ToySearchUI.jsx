@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import toys from '../data/Toy'; // make sure this exists or is passed via props
+import toys from '../data/Toy';
+import { motion } from 'framer-motion';
 
 const ToySearchUI = ({ onSearch, scrollTargetRef }) => {
 
@@ -30,12 +31,39 @@ const ToySearchUI = ({ onSearch, scrollTargetRef }) => {
 
     return (
         <div className="bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen pt-10 px-4 text-center">
-            <h1 className="text-3xl md:text-6xl font-bold">
-                Start Your Toy Quest, <span className="text-yellow-500">Search Here!</span>
-            </h1>
-            <p className="mt-5 text-gray-600 md:text-3xl">
+            <motion.h2
+                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                transition={{
+                    duration: 0.5,
+                    ease: "easeOut"
+                }}
+                whileHover={{
+                    scale: 1.02,
+                    textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                    transition: { duration: 0.3 }
+                }}
+            >
+                Start Your Toy Quest, <span className='text-amber-400'>Search Here</span><span>!</span>
+            </motion.h2>
+            <motion.p
+                className="text-xl sm:text-2xl text-gray-600 mx-auto mb-8 font-semibold tracking-wide"
+                initial={{ scale: 0.98 }}
+                animate={{ scale: 1 }}
+                transition={{
+                    delay: 0.2,
+                    duration: 0.5,
+                    ease: "easeOut"
+                }}
+                whileHover={{
+                    scale: 1.02,
+                    textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                    transition: { duration: 0.3 }
+                }}
+            >
                 Spark imagination and unlock the magic of play, find the toy that's made for you!
-            </p>
+            </motion.p>
 
             {/* Search Bar */}
             <div className="mt-6 flex justify-center">
@@ -104,18 +132,18 @@ const ToySearchUI = ({ onSearch, scrollTargetRef }) => {
 
                     const handleAgeGroupClick = () => {
                         const normalize = str => str.replace(/\s+/g, '').toLowerCase();
-                        
+
                         const filteredToys = toys.filter(toy =>
                             normalize(toy.ageRange) === normalize(group.range)
                         );
-                    
+
                         onSearch && onSearch(filteredToys);
-                    
+
                         if (scrollTargetRef?.current) {
                             scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
                         }
                     };
-                    
+
 
                     return (
                         <div

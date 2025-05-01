@@ -18,7 +18,7 @@ const BlogCard = ({ post, onClick }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
       onClick={() => onClick(post.id)}
       initial={{ opacity: 0, y: 20 }}
@@ -28,15 +28,15 @@ const BlogCard = ({ post, onClick }) => {
     >
       <div className="w-full h-48 relative bg-gray-100 overflow-hidden">
         {!imageLoaded && (
-          <motion.div 
+          <motion.div
             className="absolute inset-0 flex items-center justify-center"
             initial={{ opacity: 1 }}
             animate={{ opacity: imageLoaded ? 0 : 1 }}
             transition={{ duration: 0.3 }}
           >
-            <img 
-              src="/Logo_ToyNest.png" 
-              alt="Loading placeholder" 
+            <img
+              src="/Logo_ToyNest.png"
+              alt="Loading placeholder"
               className="w-16 h-16 object-contain opacity-20 blur-sm animate-pulse"
             />
           </motion.div>
@@ -53,7 +53,7 @@ const BlogCard = ({ post, onClick }) => {
         />
       </div>
       <motion.div className="p-6">
-        <motion.span 
+        <motion.span
           className="inline-block px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full mb-2"
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
@@ -61,7 +61,7 @@ const BlogCard = ({ post, onClick }) => {
         >
           {post.category}
         </motion.span>
-        <motion.h3 
+        <motion.h3
           className="text-xl font-semibold mb-2"
           initial={{ x: -10 }}
           animate={{ x: 0 }}
@@ -69,7 +69,7 @@ const BlogCard = ({ post, onClick }) => {
         >
           {post.title}
         </motion.h3>
-        <motion.p 
+        <motion.p
           className="text-gray-600 mb-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -77,7 +77,7 @@ const BlogCard = ({ post, onClick }) => {
         >
           {post.excerpt}
         </motion.p>
-        <motion.div 
+        <motion.div
           className="flex justify-between items-center text-sm text-gray-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -108,7 +108,7 @@ const ParentalInsights = () => {
           img.onerror = () => resolve();
         });
       });
-      
+
       await Promise.all(imagePromises);
       setImagesPreloaded(true);
     };
@@ -137,14 +137,14 @@ const ParentalInsights = () => {
 
       <AnimatePresence>
         {!imagesPreloaded && (
-          <motion.div 
+          <motion.div
             className="fixed inset-0 bg-white bg-opacity-80 flex items-center justify-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div 
+            <motion.div
               className="flex flex-col items-center"
               animate={{
                 scale: [1, 1.05, 1],
@@ -156,9 +156,9 @@ const ParentalInsights = () => {
                 ease: "easeInOut"
               }}
             >
-              <img 
-                src="/Logo_ToyNest.png" 
-                alt="Loading" 
+              <img
+                src="/Logo_ToyNest.png"
+                alt="Loading"
                 className="w-24 h-24 object-contain blur-sm mb-4"
               />
               <p className="text-gray-500">Loading content...</p>
@@ -167,10 +167,10 @@ const ParentalInsights = () => {
         )}
       </AnimatePresence>
 
-      <motion.div 
+      <motion.div
         className={`min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8`}
         initial={{ y: 20, opacity: 0 }}
-        animate={{ 
+        animate={{
           y: imagesPreloaded ? 0 : 20,
           opacity: imagesPreloaded ? 1 : 0
         }}
@@ -183,41 +183,53 @@ const ParentalInsights = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <motion.h1 
+            <motion.h1
               className="text-3xl font-extrabold text-gray-900 sm:text-4xl"
               initial={{ y: -20 }}
               animate={{ y: 0 }}
               transition={{ type: 'spring', stiffness: 100 }}
+
+              whileHover={{
+                scale: 1.02,
+                textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                transition: { duration: 0.3 }
+              }}
             >
               Parent Insights
             </motion.h1>
-            <motion.p 
+            <motion.p
               className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
+
+              whileHover={{
+                scale: 1.02,
+                textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                transition: { duration: 0.3 }
+              }}
             >
               Expert advice and shared experiences for every parenting journey
             </motion.p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
             {blogPosts.slice(0, visiblePosts).map((post, index) => (
-              <BlogCard 
-                key={post.id} 
-                post={post} 
-                onClick={handleCardClick} 
+              <BlogCard
+                key={post.id}
+                post={post}
+                onClick={handleCardClick}
               />
             ))}
           </motion.div>
 
           {visiblePosts < blogPosts.length && (
-            <motion.div 
+            <motion.div
               className="mt-12 text-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

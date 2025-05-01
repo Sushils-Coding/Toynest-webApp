@@ -14,6 +14,7 @@ import {
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { sendEmails } from "../../services/emailService";
+import {motion} from "framer-motion";
 
 const Seller = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,13 +97,40 @@ const Seller = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Become a <span className="text-amber-500">ToyNest Partner</span>
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600">
-              Join our marketplace and reach thousands of parents looking for
-              quality toys
-            </p>
+          <motion.h2
+                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                transition={{
+                    duration: 0.5,
+                    ease: "easeOut"
+                }}
+                whileHover={{
+                    scale: 1.02,
+                    textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                    transition: { duration: 0.3 }
+                }}
+            >
+                Become a <span className="text-amber-500">ToyNest Partner</span>
+            </motion.h2>
+            <motion.p
+                className="text-xl sm:text-2xl text-gray-600 mx-auto mb-8 font-semibold tracking-wide"
+                initial={{ scale: 0.98 }}
+                animate={{ scale: 1 }}
+                transition={{
+                    delay: 0.2,
+                    duration: 0.5,
+                    ease: "easeOut"
+                }}
+                whileHover={{
+                    scale: 1.02,
+                    textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                    transition: { duration: 0.3 }
+                }}
+            >
+                Join our marketplace and reach thousands of parents looking for
+                quality toys
+            </motion.p>
           </div>
 
           {/* Benefits Grid */}

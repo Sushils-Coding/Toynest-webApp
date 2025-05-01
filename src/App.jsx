@@ -19,6 +19,9 @@ import Register from "./component/pages/Register";
 import NotFound from "./component/pages/NotFound";
 import Layout from './component/Layout';
 import { ThemeProvider } from './context/ThemeContext';
+import PrivacyPolicy from "./component/pages/PrivacyPolicy";
+import TermsAndConditions from "./component/pages/TermsAndConditions";
+import RefundAndCancellationPolicy from "./component/pages/RefundAndCancellationPolicy";
 
 function App() {
   const router = createBrowserRouter([
@@ -81,6 +84,18 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/privacy-policy",
+      element: <PrivacyPolicy />,
+    },
+    {
+      path: "/terms-and-conditions",
+      element: <TermsAndConditions />,
+    },
+    {
+      path: "/refund-and-cancellation-policy",
+      element: <RefundAndCancellationPolicy />,
     },
     {
       path: "*",

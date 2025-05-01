@@ -2,8 +2,15 @@ import React from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import FAQ from "../FAQ";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const Pricing = () => {
+
+  useEffect(() => {
+          window.scrollTo(0, 0);
+      }, []);
+
   const plans = [
     {
       name: "Starter Plan",
@@ -86,16 +93,24 @@ const Pricing = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 transform transition-all duration-300 hover:scale-105">
+            <motion.h2 className="text-4xl md:text-6xl font-bold mb-6 transform transition-all duration-300 hover:scale-105">
               Become a member today and{" "}
               <span className="text-amber-500 inline-block hover:scale-110 transition-transform duration-300">
                 avail benefits!
               </span>
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600 animate-fade-in">
+            </motion.h2>
+            <motion.p className="text-lg md:text-xl text-gray-600 animate-fade-in"
+              initial={{ scale: 0.98 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              whileHover={{
+                scale: 1.02,
+                textShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+                transition: { duration: 0.3 }
+              }}>
               *Pricing displayed are inclusive of taxes & might get further
               reduced as per your location
-            </p>
+            </motion.p>
           </div>
 
           {/* Pricing Cards Section */}
@@ -104,10 +119,9 @@ const Pricing = () => {
               <div
                 key={plan.name}
                 className={`bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 border-2 relative
-                  ${
-                    plan.name === "Standard Plan"
-                      ? "border-amber-400 scale-105 z-10"
-                      : "border-amber-100"
+                  ${plan.name === "Standard Plan"
+                    ? "border-amber-400 scale-105 z-10"
+                    : "border-amber-100"
                   }`}
               >
                 {plan.name === "Standard Plan" && (

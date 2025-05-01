@@ -4,6 +4,10 @@ import toys from '../../data/Toy';
 import Navbar from "../Navbar";
 
 const Wishlist = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [wishlistItems, setWishlistItems] = useState([]);
 
   // Load wishlist and ensure no duplicate IDs
@@ -65,9 +69,9 @@ const Wishlist = () => {
                 return (
                   <div key={id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div className="relative">
-                      <img 
-                        src={toy.image} 
-                        alt={toy.name} 
+                      <img
+                        src={toy.image}
+                        alt={toy.name}
                         className="w-full h-48 object-contain p-4"
                       />
                       <button
